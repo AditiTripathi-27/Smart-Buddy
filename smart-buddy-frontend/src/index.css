@@ -1,0 +1,764 @@
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f7f8fc;
+  color: #263b63;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Prevent unwanted horizontal scrolling */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* React app main layout */
+.app-layout {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Common text selection */
+::selection {
+  background: #dce8fb;
+  color: #263b63;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f4f6fa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd4e2;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aeb9ca;
+}
+
+/* Mobile safety */
+@media (max-width: 768px) {
+  body {
+    min-width: 0;
+  }
+
+  #root {
+    width: 100%;
+  }
+}
+
+/* ================= TIMETABLE ================= */
+
+.timetable-page {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.timetable-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.timetable-header h2 {
+  margin: 0;
+  color: #263b63;
+  font-size: 21px;
+}
+
+.timetable-header p {
+  margin: 6px 0 0;
+  color: #8993a5;
+  font-size: 13px;
+}
+
+.timetable-download-btn {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 9px;
+  background: #3867b7;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.timetable-download-btn:hover {
+  background: #2f589d;
+}
+
+.timetable-filters {
+  display: grid;
+  grid-template-columns: 1fr 180px;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.timetable-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.timetable-field label {
+  color: #34415a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.timetable-field select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid #dce3ed;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #34415a;
+  font-size: 13px;
+  outline: none;
+}
+
+.timetable-field select:focus {
+  border-color: #3867b7;
+  box-shadow: 0 0 0 3px rgba(56, 103, 183, 0.08);
+}
+
+.timetable-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #e1e8f2;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(43, 70, 110, 0.06);
+}
+
+.timetable-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+}
+
+.timetable-table th {
+  padding: 15px 14px;
+  background: #f3f7fc;
+  color: #52627c;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid #e1e7ef;
+}
+
+.timetable-table td {
+  padding: 16px 14px;
+  color: #34415a;
+  font-size: 12px;
+  text-align: center;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.timetable-table td:first-child {
+  color: #263b63;
+  font-weight: 700;
+  background: #f8fafd;
+}
+
+.timetable-table tbody tr:hover {
+  background: #f9fbfe;
+}
+
+.timetable-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.timetable-table td:nth-child(5) {
+  color: #929aaa;
+  font-style: italic;
+}
+
+.timetable-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 13px 16px;
+  background: #f6f9fd;
+  border: 1px solid #e1e8f2;
+  border-radius: 11px;
+}
+
+.timetable-note span {
+  color: #3867b7;
+  font-size: 16px;
+}
+
+.timetable-note p {
+  margin: 0;
+  color: #7d8799;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .timetable-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .timetable-download-btn {
+    width: 100%;
+  }
+
+  .timetable-filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= RESOURCES - TIMETABLE ================= */
+
+.resources-page {
+  width: 100%;
+}
+
+.resources-header {
+  margin-bottom: 20px;
+}
+
+.resources-header h2 {
+  margin: 0;
+  color: #263b63;
+  font-size: 21px;
+}
+
+.resources-header p {
+  margin: 6px 0 0;
+  color: #8993a5;
+  font-size: 13px;
+}
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.resource-grid button {
+  padding: 16px;
+  border: 1px solid #e1e8f2;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #34415a;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  box-shadow: 0 4px 14px rgba(43, 70, 110, 0.05);
+  transition: 0.2s;
+}
+
+.resource-grid button:hover {
+  border-color: #3867b7;
+  transform: translateY(-2px);
+}
+
+/* Timetable Resource Card */
+
+.timetable-resource-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e1e8f2;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(43, 70, 110, 0.06);
+}
+
+.timetable-resource-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.resource-file-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef4ff;
+  border-radius: 12px;
+  font-size: 23px;
+}
+
+.timetable-resource-info h3 {
+  margin: 0;
+  color: #263b63;
+  font-size: 15px;
+}
+
+.timetable-resource-info p {
+  margin: 6px 0 0;
+  color: #8993a5;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Faculty Upload */
+
+.faculty-upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+}
+
+.upload-timetable-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background: #3867b7;
+  color: #ffffff;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.upload-timetable-btn:hover {
+  background: #2f589d;
+}
+
+.faculty-upload-area small {
+  color: #929aaa;
+  font-size: 10px;
+}
+
+/* Uploaded File Name */
+
+.uploaded-timetable {
+  margin-top: 12px;
+  padding: 10px 13px;
+  background: #f4f8ff;
+  border: 1px solid #dce7f7;
+  border-radius: 9px;
+  color: #3867b7;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Student Download Button */
+
+.resource-download-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 9px;
+  background: #3867b7;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.resource-download-btn:hover {
+  background: #2f589d;
+}
+
+/* Responsive */
+
+@media (max-width: 850px) {
+  .resource-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .timetable-resource-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .faculty-upload-area {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 550px) {
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timetable-resource-card {
+    padding: 16px;
+  }
+
+  .timetable-resource-info {
+    align-items: flex-start;
+  }
+}
+
+/* ================= RESOURCES ================= */
+
+.resources-page {
+  width: 100%;
+}
+
+.resources-header {
+  margin-bottom: 24px;
+}
+
+.resources-header h2 {
+  margin: 0;
+  color: #263b63;
+  font-size: 21px;
+}
+
+.resources-header p {
+  margin: 6px 0 0;
+  color: #8993a5;
+  font-size: 13px;
+}
+
+/* Section Heading */
+
+.resources-section-title {
+  margin-bottom: 14px;
+}
+
+.resources-section-title h3 {
+  margin: 0;
+  color: #263b63;
+  font-size: 16px;
+}
+
+.resources-section-title p {
+  margin: 5px 0 0;
+  color: #8993a5;
+  font-size: 12px;
+}
+
+/* Branch Cards */
+
+.branch-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.branch-resource-card {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #e1e8f2;
+  border-radius: 14px;
+  background: #ffffff;
+  text-align: left;
+  box-shadow: 0 4px 14px rgba(43, 70, 110, 0.05);
+  transition: 0.2s;
+}
+
+.branch-resource-card:hover {
+  border-color: #3867b7;
+  transform: translateY(-2px);
+}
+
+.branch-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #eef4ff;
+  border-radius: 11px;
+  font-size: 20px;
+}
+
+.branch-resource-card h3 {
+  margin: 0;
+  color: #263b63;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.branch-resource-card p {
+  margin: 5px 0 0;
+  color: #8993a5;
+  font-size: 11px;
+}
+
+.resource-arrow {
+  margin-left: auto;
+  color: #3867b7;
+  font-size: 18px;
+}
+
+/* Subject Section */
+
+.subject-heading {
+  margin-top: 4px;
+}
+
+.subject-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+  margin-bottom: 28px;
+}
+
+.subject-resource-card {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #e1e8f2;
+  border-radius: 13px;
+  background: #ffffff;
+  text-align: left;
+  box-shadow: 0 4px 14px rgba(43, 70, 110, 0.04);
+  transition: 0.2s;
+}
+
+.subject-resource-card:hover {
+  border-color: #3867b7;
+  transform: translateY(-2px);
+}
+
+.subject-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #f1f5fb;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.subject-resource-card h4 {
+  margin: 0;
+  color: #34415a;
+  font-size: 12px;
+}
+
+.subject-resource-card p {
+  margin: 4px 0 0;
+  color: #929aaa;
+  font-size: 10px;
+}
+
+/* Subject Files */
+
+.subject-files-section {
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e1e8f2;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(43, 70, 110, 0.05);
+}
+
+.subject-files-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.subject-files-header h3 {
+  margin: 0;
+  color: #263b63;
+  font-size: 16px;
+}
+
+.subject-files-header p {
+  margin: 5px 0 0;
+  color: #8993a5;
+  font-size: 11px;
+}
+
+/* Upload Resource */
+
+.upload-resource-btn {
+  padding: 10px 15px;
+  background: #3867b7;
+  color: #ffffff;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.upload-resource-btn:hover {
+  background: #2f589d;
+}
+
+/* Resource File List */
+
+.resource-files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resource-file-card {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px;
+  border: 1px solid #edf0f5;
+  border-radius: 11px;
+  background: #fafbfd;
+}
+
+.file-type-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 9px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.pdf-icon {
+  background: #fff0f0;
+  color: #d9534f;
+}
+
+.image-icon {
+  background: #eef8f2;
+  color: #3d8b61;
+}
+
+.link-icon {
+  background: #eef4ff;
+  color: #3867b7;
+}
+
+.resource-file-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.resource-file-details h4 {
+  margin: 0;
+  color: #34415a;
+  font-size: 12px;
+}
+
+.resource-file-details p {
+  margin: 4px 0 0;
+  color: #929aaa;
+  font-size: 10px;
+}
+
+.resource-action-btn {
+  padding: 8px 13px;
+  border: 1px solid #dce3ed;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #3867b7;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.resource-action-btn:hover {
+  background: #f3f7fc;
+}
+
+/* Responsive */
+
+@media (max-width: 850px) {
+  .branch-resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .subject-resource-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .subject-resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .subject-files-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .upload-resource-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .resource-file-card {
+    align-items: flex-start;
+  }
+}
