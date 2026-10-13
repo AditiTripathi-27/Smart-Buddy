@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api";
+const API_URL = "/api";
 
 // Get saved JWT token
 function getToken() {
@@ -59,36 +59,43 @@ export async function fetchRecentActivity() {
 }
 
 // Add a new task
+
+
 export async function addTask(task) {
-    try {
-        const response = await fetch(`${API_URL}/tasks`, {
-            method: "POST",
-            headers: getAuthHeaders(),
-            body: JSON.stringify(task)
-        });
+    const response = await fetch(`${API_URL}/assignments`, {
+        method: "POST",
+        headers: {
+            ...getAuthHeaders(),
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(task)
+    });
 
-        if (!response.ok) {
-            throw new Error("Backend unavailable");
-        }
-
-        return response.json();
-    } catch (error) {
-        // Temporary frontend storage
-        const savedTasks =
-            JSON.parse(localStorage.getItem("smartBuddyTasks")) || [];
-
-        const newTask = {
-            id: Date.now(),
-            ...task
-        };
-
-        savedTasks.push(newTask);
-
-        localStorage.setItem(
-            "smartBuddyTasks",
-            JSON.stringify(savedTasks)
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+            `Failed to add assignment: ${response.status} ${errorText}`
         );
-
-        return newTask;
     }
+
+    return response.json();
+}
+
+
+ // Update an existing assignment
+export async function updateTask(id, task) {
+    const response = await fetch(`${API_URL}/assignments/${id}`, {
+        method: "PUT",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(task)
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+            `Failed to update assignment: ${response.status} ${errorText}`
+        );
+    }
+
+    return response.json();
 }
