@@ -17,28 +17,6 @@ function getAuthHeaders() {
     };
 }
 
-// Get dashboard statistics
-export async function fetchDashboardStats() {
-    try {
-        const response = await fetch(`${API_URL}/dashboard/stats`, {
-            method: "GET",
-            headers: getAuthHeaders()
-        });
-
-        if (!response.ok) {
-            throw new Error("Backend unavailable");
-        }
-
-        return response.json();
-    } catch (error) {
-        return {
-            totalAssignments: 0,
-            completedAssignments: 0,
-            pendingAssignments: 0,
-            attendance: 0
-        };
-    }
-}
 
 // Get recent activity
 export async function fetchRecentActivity() {
@@ -57,6 +35,25 @@ export async function fetchRecentActivity() {
         return [];
     }
 }
+
+// Save activity to database
+export async function saveActivity(description) {
+    const response = await fetch(`${API_URL}/activity`, {
+        method: "POST",
+        headers: {
+            ...getAuthHeaders(),
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ description })
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to save activity");
+    }
+
+    return response.json();
+}
+
 
 // Add a new task
 
@@ -82,7 +79,7 @@ export async function addTask(task) {
 }
 
 
- // Update an existing assignment
+// Update an existing assignment
 export async function updateTask(id, task) {
     const response = await fetch(`${API_URL}/assignments/${id}`, {
         method: "PUT",

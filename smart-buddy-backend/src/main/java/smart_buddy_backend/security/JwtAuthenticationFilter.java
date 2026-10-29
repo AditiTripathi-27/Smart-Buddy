@@ -22,6 +22,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+
+        return path.startsWith("/api/auth/")
+                || request.getMethod().equalsIgnoreCase("OPTIONS");
+    }
+
+    @Override
     protected void doFilterInternal(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -38,12 +46,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 String email = jwtUtil.extractEmail(token);
 
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(
-                                email,
-                                null,
-                                java.util.Collections.emptyList()
-                        );
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        email,
+                        null,
+                        java.util.Collections.emptyList());
 
                 SecurityContextHolder.getContext()
                         .setAuthentication(authentication);

@@ -5,4 +5,12 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
   base: '/Smart-Buddy/',
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8081',
+        changeOrigin: true,
+      },
+    },
+  },
 })

@@ -17,6 +17,15 @@ public class Account {
     private String email;
     private String role;
     private String branch;
+    private String division;
+
+public String getDivision() {
+    return division;
+}
+
+public void setDivision(String division) {
+    this.division = division;
+}
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -25,12 +34,13 @@ public class Account {
     public Account() {
     }
 
-    public Account(String name, String email, String role, String branch) {
-        this.name = name;
-        this.email = email;
-        this.role = role;
-        this.branch = branch;
-    }
+   public Account(String name, String email, String role, String branch, String division) {
+    this.name = name;
+    this.email = email;
+    this.role = role;
+    this.branch = branch;
+    this.division = division;
+}
 
     public Long getId() {
         return id;

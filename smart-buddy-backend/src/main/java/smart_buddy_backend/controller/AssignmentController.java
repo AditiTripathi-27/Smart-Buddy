@@ -6,6 +6,9 @@ import smart_buddy_backend.repository.AssignmentRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
+
+
 import java.util.List;
 
 @RestController
@@ -19,10 +22,37 @@ public class AssignmentController {
         this.assignmentRepository = assignmentRepository;
     }
 
-    @PostMapping
-    public Assignment addAssignment(@RequestBody Assignment assignment) {
-        return assignmentRepository.save(assignment);
+    
+@PostMapping
+public Assignment addAssignment(@RequestBody Assignment assignment) {
+
+    if (assignment.getTitle() == null
+            || assignment.getTitle().isBlank()) {
+        throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Task title is required");
     }
+
+    if (assignment.getDueDate() == null) {
+        throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Due date and time are required");
+    }
+
+    if (!assignment.getDueDate().isAfter(LocalDateTime.now())) {
+        throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Due date and time must be in the future");
+    }
+
+    if (assignment.getStatus() == null
+            || assignment.getStatus().isBlank()) {
+        assignment.setStatus("Pending");
+    }
+
+    return assignmentRepository.save(assignment);
+}
+
 
     @GetMapping
     public List<Assignment> getAllAssignments() {

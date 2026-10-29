@@ -1,7 +1,8 @@
+
 package smart_buddy_backend.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "assignments")
@@ -13,7 +14,9 @@ public class Assignment {
 
     private String title;
     private String subject;
-    private LocalDate dueDate;
+
+    private LocalDateTime dueDate;
+
     private String status;
 
     public Assignment() {
@@ -43,11 +46,11 @@ public class Assignment {
         this.subject = subject;
     }
 
-    public LocalDate getDueDate() {
+    public LocalDateTime getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
     }
 

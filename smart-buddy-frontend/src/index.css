@@ -58,11 +58,7 @@ body {
   overflow-x: hidden;
 }
 
-/* React app main layout */
-.app-layout {
-  min-height: 100vh;
-  width: 100%;
-}
+
 
 /* Common text selection */
 ::selection {
